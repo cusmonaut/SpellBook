@@ -75,7 +75,11 @@ namespace MysticReference.DAL
 
         public void ReadBinaryFile(string spellBookName, ref SpellBook spellBook)
         {
-            if (spellBook == null) throw new ArgumentNullException("spellBook");
+            if (spellBook == null)
+            {
+                throw new ArgumentNullException("spellBook");
+            }
+
             using (var stream = File.OpenRead(spellBookName))
             {
                 var newObj = (SpellBook)new BinaryFormatter().Deserialize(stream);

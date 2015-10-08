@@ -1,5 +1,6 @@
 ﻿using MysticReference.DAL;
 using MysticReference.Domain;
+using MysticReference.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,17 +90,19 @@ namespace MysticReference
         /// <param name="e"></param>
         private void NewSpellBookToolStripMenuItemClick(object sender, EventArgs e)
         {
-            var name = Microsoft.VisualBasic.Interaction.InputBox("Spell Book Name: ", "Create New Spell Book", "CustomSpellBook");
+            var newSpellBookDialog = new CreateSpellBook();
 
-            if (!string.IsNullOrEmpty(name))
+            if (newSpellBookDialog.ShowDialog(this) == DialogResult.OK)
             {
-                PlayerSpellBook = new SpellBook { BookName = name };
+                PlayerSpellBook = new SpellBook { BookName = newSpellBookDialog.BookName };
 
                 _player = new PlayerBook();
                 PlayerBook.PlayerSpellBook = PlayerSpellBook;
                 PreparePlayerForm();
                 _player.Show();
             }
+
+            newSpellBookDialog.Dispose();
         }
 
         /// <summary>
